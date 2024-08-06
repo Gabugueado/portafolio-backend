@@ -3,6 +3,7 @@
 node_modules/
 dist/
 
+database.ts
 
 # dotenv environment variable files
 .env

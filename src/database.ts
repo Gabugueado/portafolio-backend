@@ -4,7 +4,7 @@ const { Pool } = pg
 
 export const pool = new Pool({
     host: 'localhost',
-    user: 'postgres',
+    user: 'gabo',
     database: 'portafolio',
     password: process.env.POSGRESQL_PASSWORD || 'admin',
     max: 20,

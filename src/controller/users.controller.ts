@@ -10,7 +10,7 @@ export const getUsers = async (req: Request, res: Response) : Promise<Response> 
 }
 
 
-export async function CreateUser(req: Request, res: Response) {
+export async function createUser(req: Request, res: Response) {
     const user: Users = req.body;
     const text = 'INSERT INTO users(username, password) VALUES($1, $2) RETURNING *';
     const values = [user.username, user.password];
@@ -26,4 +26,16 @@ export const getUser = async (req: Request, res: Response) : Promise<Response> =
     const values = [ parseInt(id) ];
     const result = await pool.query(text, values);
     return res.json(result.rows[0])
+}
+
+export const updateUser = async (req:Request, res: Response): Promise<Response> => {
+
+    const { id } = req.params;
+    const user: Users = req.body;
+    const text = 'UPDATE public.users SET username = $1, password = $2 WHERE id_users = $3';
+    const values = [user.username, user.password, id];
+    const result = await pool.query(text, values);
+    console.log(result);
+    return res.json(result.rows)
+    
 }
