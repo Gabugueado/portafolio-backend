@@ -1,6 +1,6 @@
 export interface Users{
-    id?: String,
-    username: String,
-    password: String,
+    id?: string,
+    username: string,
+    password: string,
     is_active: boolean|null
 }
