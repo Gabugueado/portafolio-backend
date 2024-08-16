@@ -1,9 +1,24 @@
 import { Router } from 'express';
-
+import { Request, Response } from "express";
+import jwt from 'jsonwebtoken';
 //controller
 import { getUsers, createUser, getUser, updateUser, deleteUser } from '../controller/users.controller';
 
 const router = Router();
+
+router.use((req: Request, res: Response, next: Function) => {
+    const token = req.headers['authorization'];
+
+    if (token == null) return res.sendStatus(401);
+
+    jwt.verify(token, 'Catalina', (err: any, user: any) => {
+        console.log(err)
+        console.log(user)
+        if (err) return res.sendStatus(403)
+        req.body = user
+        next();
+    });
+})
 
 router.route('/')
     .get(getUsers)
