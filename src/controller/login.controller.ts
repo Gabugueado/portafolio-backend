@@ -21,9 +21,11 @@ export const login = async (req:Request, res:Response) : Promise<Response> => {
     const result = await query(text, values);
     const ok = await comparePassword(user.password, result.rows[0].password);
     
-    const token = jwt.sign({ username: user.username }, 'Catalina', { expiresIn: '1h' }); 
+    if (!ok) return res.json({message: 'Usuario o Contraseña erroneo'});
+
+    const accessToken = jwt.sign({ data: user }, 'Catalina', { expiresIn: '1m' }); 
     // const message = ok ? 'successful login' : 'login failure';
     
-    return res.json({ token });
+    return res.json({ accessToken });
 
 }

@@ -7,7 +7,9 @@ import { getUsers, createUser, getUser, updateUser, deleteUser } from '../contro
 const router = Router();
 
 router.use((req: Request, res: Response, next: Function) => {
-    const token = req.headers['authorization'];
+
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
 
     if (token == null) return res.sendStatus(401);
 
