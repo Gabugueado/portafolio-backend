@@ -1,5 +1,6 @@
 import express, { Application } from 'express';
 import morgan from "morgan";
+import cors from "cors";
 
 // Routes
 import IndexRoutes from './routes/index.routes'
@@ -26,6 +27,9 @@ export class App {
     middlewares() {
         this.app.use( morgan('dev') );
         this.app.use(express.json()) // for parsing application/json
+        this.app.use(cors({
+            origin: ['http://localhost:5173']
+            }));
     }
 
     routes() {

@@ -14,12 +14,12 @@ export const getProducts = async (req: Request, res: Response) : Promise<Respons
     const text = 'SELECT * FROM products';
     const result = await query(text);
 
-    return res.json(result.rows[0]);
+    return res.json(result.rows);
 }
 export const getProduct = async (req: Request, res: Response) : Promise<Response> => {
     
     const id = req.params.id;
-    const text = 'SELECT * FROM public.products WHERE id = $2';
+    const text = 'SELECT * FROM public.products WHERE id = $1';
     const values = [id]
     const result = await query(text, values);
 
